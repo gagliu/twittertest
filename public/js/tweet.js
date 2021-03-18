@@ -9,16 +9,10 @@ $(document).ready(function () {
         }
     });
 
-    $(".crud-submit").click(function (e) {
+    $(".tweet-store").click(function (e) {
         e.preventDefault();
-        button = $(this);
-        console.log('click create twitter')
-
-        button.prop('disabled',true);
 
         var form_action = $("#create_tweet_modal").find("form").attr("action");
-        console.log(form_action)
-        console.log($('#form_create_tweet').serialize())
 
         $.ajax({
             dataType: 'json',
@@ -26,9 +20,11 @@ $(document).ready(function () {
             url: form_action,
             data: $('#form_create_tweet').serialize(),
             success: function (response) {
-                $("#create_modal").modal('hide');
-                //updateParentsTable();
+                $("#create_tweet_modal").modal('hide');
+                //TODO update tweets list
             }, error: function (response) {
+                console.log('error create tweet')
+                console.log(response)
             }
         });
 

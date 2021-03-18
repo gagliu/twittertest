@@ -12,6 +12,6 @@ class Tweet extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'nickname'
+        'description'
     ];
 }

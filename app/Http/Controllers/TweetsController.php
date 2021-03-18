@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use App\Tweet;
 
 class TweetsController extends Controller
 {
@@ -34,7 +36,17 @@ class TweetsController extends Controller
      */
     public function store(Request $request)
     {
-        dd('store tweet', $request->all());
+        $validator = Validator::make($request->all(), [
+            'description' => ['required', 'string', 'max:280']
+        ]);
+
+        if($validator->fails()){
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+
+        return Tweet::create([
+            'description' => $request->description
+        ]);
     }
 
     /**
@@ -80,5 +92,15 @@ class TweetsController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function follow($followed_id)
+    {
+        
+    }
+
+    public function unfollow($followed_id)
+    {
+        
     }
 }
